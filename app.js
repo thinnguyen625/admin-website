@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const flash = require('connect-flash');
+const session = require('express-session');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -19,6 +21,33 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Static path
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/category', express.static(path.join(__dirname, 'public')));
+app.use('/store', express.static(path.join(__dirname, 'public')));
+app.use('/product', express.static(path.join(__dirname, 'public')));
+app.use('/order', express.static(path.join(__dirname, 'public')));
+app.use('/user', express.static(path.join(__dirname, 'public')));
+
+// Express Session
+app.use(session({
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: true,
+}));
+
+// Connect flash
+app.use(flash());
+
+// Global Vars
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  next();
+});
+
+// Router
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
