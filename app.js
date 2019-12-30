@@ -4,16 +4,24 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const bodyParser = require('body-parser');
+
 const flash = require('connect-flash');
 const session = require('express-session');
+const passport = require('passport');
+var createError = require('http-errors');
+
+var app = express();
 
 // router files =================================================
 var indexRouter = require('./routes/index');
 var adminRouter = require('./routes/admin');
 var Database = require('./db/database');
 
+// Passport config ==============================================
+require('./config/passport')(passport);
 
-var app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -34,6 +42,7 @@ app.use('/order', express.static(path.join(__dirname, 'public')));
 app.use('/user', express.static(path.join(__dirname, 'public')));
 app.use('/login', express.static(path.join(__dirname, 'public')));
 
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Express Session
 app.use(session({
@@ -41,6 +50,10 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
 }));
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Connect flash
 app.use(flash());
