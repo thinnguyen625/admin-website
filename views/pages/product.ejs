@@ -59,7 +59,8 @@
                       <th class="style-middle-center">Tên sản phẩm</th>
                       <th class="style-middle-center">Hình ảnh</th>
                       <th class="style-middle-center">Mô tả</th>
-                      <th class="style-middle-center">Giá </th>
+                      <th class="style-middle-center">Giá mới (VNĐ) </th>
+                      <th class="style-middle-center">Giá cũ (VNĐ)</th>
                       <th class="style-middle-center">Số lượng</th>
                       <th class="style-middle-center">Danh mục</th>
                       <th class="style-middle-center">Chức năng</th>
@@ -69,18 +70,23 @@
                     <% var i = 1 %>
                     <% products.forEach((entry) => { %>
                     <tr>
-                      <td class="style-middle-center"><%= i%></td>
-                      <td class="style-middle-center" id="product-name"><%= entry.name %></td>
+                      <td class="style-middle-center"><%= i%>
+                      </td>
+                      <td class="style-middle-center" id="product-name"><%= entry.name %>
+                      </td>
                       <td class="style-middle-center">
                         <img src="<%= entry.imgSrc %>" class="img-product" id="product-image">
                       </td>
-                      <td class="style-middle-center" id="product-info"><%= entry.description %></td>
-                      <td class="style-middle-center" id="product-price"><%= entry.price %>
+                      <td class="style-middle-center" id="product-info"><%= entry.description %>
+                      </td>
+                      <td class="style-middle-center" id="product-price"><%=priceConverter(entry.price) %>
+                      </td>
+                      <td class="style-middle-center" id="product-price"><%=priceConverter(entry.old_price) %>
                       </td>
                       <td class="style-middle-center" id="product-quantity"><%= entry.quantity %>
                       </td>
-                      <td class="style-middle-center" id="product-category">
-                        <%= entry.category %></td>
+                      <td class="style-middle-center" id="product-category"><%= entry.category %>
+                      </td>
                       <td class="style-middle-center">
                         <button class="btn btn-outline-primary btn-edit-product" type="button" data-toggle="modal"
                           data-target="#myModal" data-id="#">
