@@ -1,3 +1,4 @@
+// set up =======================================================
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -6,8 +7,11 @@ var logger = require('morgan');
 const flash = require('connect-flash');
 const session = require('express-session');
 
+// router files =================================================
 var indexRouter = require('./routes/index');
 var adminRouter = require('./routes/admin');
+var Database = require('./db/database');
+
 
 var app = express();
 

@@ -1,3 +1,15 @@
-exports.displayUser = (req, res) => {
-    res.render('pages/user');
+var User = require('../models/user');
+
+ 
+ exports.displayUser = (req, res) => {
+    User.find({})
+    .then(users => {
+       res.render('pages/user',{
+          users: users
+       });
+    })
+    .catch(err => {
+       console.log('Error: ', err);
+       throw err;
+    });
  }

@@ -9,7 +9,8 @@ var productSchema = mongoose.Schema({
     producer: { type: String },
     description: { type: String },
     configuration: { type: String },
-    views: { type: Number }
+    views: { type: Number },
+    quantity: {type: Number}
 });
 
 module.exports = mongoose.model('product', productSchema, 'product');

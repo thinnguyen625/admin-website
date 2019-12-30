@@ -28,7 +28,4 @@ router.get('/user', userControllers.displayUser);
 // Store
 router.get('/store', storeControllers.displayStore);
 
-// router.get('/login', function(req, res, next) {
-//   res.render('pages/login', { title: 'Express' });
-// });
 module.exports = router;

@@ -48,25 +48,26 @@
                 </span>
             </div>
             <div class="row">
+                <% stores.forEach((entry) => { %>
                 <div class="col-md-4 col-sm-4 open-dialog" id="open-dialog" data-id="store._id">
                     <div class="panel" data-toggle="modal" data-target="#myModal">
                         <div class="panel-heading header-panel store-name"
                             style="display: flex; flex-direction: row;justify-content: space-between;align-items: center;">
-                            <span >135 Nguyễn Trãi</span>
+                            <span ><%= entry.name %></span>
                             <a class="btn btn-outline-primary btn-delete-product" type="button"
                                 href="" style="border-color: white;color: white;">
                                 <i class="far fa-trash-alt"></i>
                             </a>
                         </div>
                         <div class="panel-body" style="text-align: center" id="store-image">
-                            <img class="img-store" src="../../public/img/gg-home.jpg" data-id="">
+                            <img class="img-store" src="<%= entry.image %>" data-id="">
                         </div>
-                        <div class="panel-footer store-address">135 Nguyễn Trãi</div>
+                        <div class="panel-footer store-address"><%= entry.describe %></div>
 
                     </div>
                 </div>
                 
-
+                <% }) %>
             </div>
         </div>
     </div>
