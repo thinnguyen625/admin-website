@@ -1,40 +1,34 @@
 var express = require('express');
 var router = express.Router();
+var homeControllers = require('../controller/home-controllers');
+var productControllers = require('../controller/product-controllers');
+var orderControllers = require('../controller/order-controllers');
+var userControllers = require('../controller/user-controllers');
+var storeControllers = require('../controller/store-controllers');
+
+
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('pages/index', { title: 'Express' });
-});
+router.get('/', homeControllers.index);
 
-router.get('/home', function(req, res, next) {
-  res.render('pages/index', { title: 'Express' });
-});
+router.get('/home', homeControllers.index);
 
-router.get('/category', function(req, res, next) {
-  res.render('pages/category', { title: 'Express' });
-});
+// Product
+router.get('/product', productControllers.displayProducts);
 
-router.get('/login', function(req, res, next) {
-  res.render('pages/login', { title: 'Express' });
-});
+// Category
+router.get('/category', productControllers.displayCategory);
 
-router.get('/product', function(req, res, next) {
-  res.render('pages/product', { title: 'Express' });
-});
+// Order
+router.get('/order', orderControllers.displayOrder);
 
-router.get('/order', function(req, res, next) {
-  res.render('pages/order', { title: 'Express' });
-});
+// Customer
+router.get('/user', userControllers.displayUser);
 
-router.get('/store', function(req, res, next) {
-  res.render('pages/store', { title: 'Express' });
-});
+// Store
+router.get('/store', storeControllers.displayStore);
 
-router.get('/user', function(req, res, next) {
-  res.render('pages/user', { title: 'Express' });
-});
-
-router.get('/logout', function(req, res, next) {
-  res.render('pages/login', { title: 'Express' });
-});
+// router.get('/login', function(req, res, next) {
+//   res.render('pages/login', { title: 'Express' });
+// });
 module.exports = router;

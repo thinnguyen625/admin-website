@@ -7,7 +7,7 @@ const flash = require('connect-flash');
 const session = require('express-session');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var adminRouter = require('./routes/admin');
 
 var app = express();
 
@@ -28,6 +28,8 @@ app.use('/store', express.static(path.join(__dirname, 'public')));
 app.use('/product', express.static(path.join(__dirname, 'public')));
 app.use('/order', express.static(path.join(__dirname, 'public')));
 app.use('/user', express.static(path.join(__dirname, 'public')));
+app.use('/login', express.static(path.join(__dirname, 'public')));
+
 
 // Express Session
 app.use(session({
@@ -49,7 +51,7 @@ app.use((req, res, next) => {
 
 // Router
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

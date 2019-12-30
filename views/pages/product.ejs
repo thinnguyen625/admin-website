@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
     <meta charset="utf-8" />
@@ -26,43 +26,8 @@
 </head>
 
 <body>
-    <div class="navbar navbar-inverse set-radius-zero " style="background-color:#324041;">
-        <div class="container">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/home">
-              <img src="images/logo.png" style="width: 80%" />
-            </a>
-          </div>
-          <div class="right-div">
-            <a href="/logout" class="btn btn-logout btn-danger pull-right">ĐĂNG XUẤT</a>
-          </div>
-        </div>
-      </div>
-      <!-- LOGO HEADER END-->
-      <section class="menu-section">
-        <div class="container">
-          <div class="row ">
-            <div class="col-md-12">
-              <div class="navbar-collapse collapse ">
-                <ul id="menu-top" class="nav navbar-nav navbar-right">
-                  <li><a href="/home">THỐNG KÊ</a></li>
-                  <li><a href="/order">ĐƠN ĐẶT HÀNG</a></li>
-                  <li><a href="/store">CỬA HÀNG</a></li>
-                  <li><a href="/category">DANH MỤC</a></li>
-                  <li><a href="/product">SẢN PHẨM</a></li>
-                  <li><a href="/user">NGƯỜI DÙNG</a></li>
-                </ul>
-              </div>
-            </div>
-    
-          </div>
-        </div>
-      </section>
+    <%- include('../partials/header.ejs') %>
+
     <!-- MENU SECTION END-->
     <div class="content-wrapper">
         <div class="container">
@@ -136,11 +101,8 @@
         </div>
     </div>
     <!-- CONTENT-WRAPPER SECTION END-->
-    <section class="footer-section">
-        <div class="container">
-            <img src="images/logo.png" style="width: 92px; height: 37px; margin: auto; display: block" />
-        </div>
-    </section>
+    <%- include('../partials/footer.ejs') %>
+
     <!-- Phần form hiển thị để sửa thông tin -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
         style="display: none;">
