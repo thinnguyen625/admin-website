@@ -58,8 +58,15 @@ app.use(passport.session());
 // Connect flash
 app.use(flash());
 
-// Global Vars
+// Global Vars - require cart controller
 app.use((req, res, next) => {
+  // if (req.user){
+  //   res.locals.isLoggedIn = true;
+  //   res.locals.userFullname = req.user.fullname;
+  // }else{
+  //   res.locals.isLoggedIn = false;
+  // }
+
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');

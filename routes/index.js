@@ -25,6 +25,15 @@ router.get('/order', orderControllers.displayOrder);
 // Customer
 router.get('/user', userControllers.displayUser);
 
+// Update User
+router.post('/user/edit', userControllers.editUser);
+// Delete User
+router.get('/user/delete/:id', userControllers.deleteUser);
+// Delete User
+router.get('/user/autho', userControllers.AuthoUser);
+
+
+
 // Store
 router.get('/store', storeControllers.displayStore);
 
