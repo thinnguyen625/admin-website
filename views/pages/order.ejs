@@ -24,8 +24,16 @@
 </head>
 
 <body>
- 
+
     <%- include('../partials/header.ejs') %>
+    <% 
+    function changeDateFormat(date) {
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        return day + '/' + month + '/' + year;
+    }
+    %>
 
     <!-- MENU SECTION END-->
     <div class="content-wrapper">
@@ -34,7 +42,7 @@
                 <div class="col-md-12">
                     <h4 class="header-line">QUẢN LÝ ĐƠN HÀNG</h4>
                 </div>
-                <span class="col-md-12 input-group-prepend" style="text-align: right; vertical-align: middle">
+                <!-- <span class="col-md-12 input-group-prepend" style="text-align: right; vertical-align: middle">
                     <span>Bộ lọc</span>
                     <div class="col-md-3" style="float: right;">
                         <div id="newproduct">
@@ -48,7 +56,7 @@
                             </select>
                         </div>
                     </div>
-                </span>
+                </span> -->
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -69,33 +77,39 @@
                                             <th>Địa chỉ giao hàng</th>
                                             <th>Ngày đặt hàng</th>
                                             <th>Trạng thái</th>
-                                            <th>Chi tết</th>
+                                            <th>Chi tiết</th>
                                         </tr>
                                     </thead>
                                     <tbody id="list-oders">
-                                       
+                                        <%var i = 1%>
+                                        <% orders.forEach((entry) => { %>
                                         <tr class="odd gradeX">
-                                            <td id="order-stt">1</td>
-                                            <td id="order-code">AE89D9DFG</td>
-                                            <td id="order-name">Nguyen Van Thin</td>
-                                            <td id="order-phone">0978182625</td>
-                                            <td class="center" id="order-address">135B Trần Hưng Đạo</td>
-                                            <td class="center" id="order-update">16/11/2019</td>
-                                            <td id="order-status" data-id="">Còn hàng
-                                            
+                                            <td id="order-stt"><%=i %></td>
+                                            <td id="order-code"><%= entry._id %></td>
+                                            <td id="order-name"><%= entry.username %></td>
+                                            <td id="order-phone"><%= entry.phone %></td>
+                                            <td class="center" id="order-address"><%= entry.address %></td>
+                                            <td class="center" id="order-update"><%=changeDateFormat(entry.date)%></td>
+                                            <td id="order-status" style="color: green;" data-id="">
+                                                <%  if(entry.status==0) {%>Đặt hàng thành công
+                                                <%} else if(entry.status==1) {%> Tiếp nhận đơn hàng
+                                                <%} else if(entry.status==2) {%> Đóng gói
+                                                <%} else if(entry.status==3) {%> Giao hàng
+                                                <%} else if(entry.status==4) {%> Giao hàng thành công
+                                                <%}%>     
                                             </td>
 
                                             <td class="center">
-                                                    <button class="btn btn-outline-primary btn-edit-order" type="button" data-toggle="modal" data-target="#myModal" 
-                                                            data-id=""
-                                                data-total-price=""
-                                                data-items=""
+                                            <button class="btn btn-outline-primary btn-edit-order" type="button" data-toggle="modal" data-target="#myModal" 
+                                                data-id="<%=entry.items._id%>"
+                                                data-total-price="<%=entry.totalCost%>"
+                                                data-items="<%=JSON.stringify(entry.items)%>"
                                                 data-status-number="">
                                                 <i class="fa fa-edit"></i></button>
                                             </td>
 
                                         </tr>
-                                        
+                                        <% i++; }) %>
                                     </tbody>
                                 </table>
                             </div>
@@ -167,7 +181,7 @@
                             <div class="form-group row">
                                 <label class="col-lg-4 col-md-4 col-form-label">Trạng thái đơn hàng</label>
                                 <div class="col-lg-8 col-md-8">
-                                    <input style="text-align: start"
+                                    <input style="text-align: start;"
                                         class="form-control ng-untouched ng-pristine ng-valid name" type="text"
                                         name='name' id="txt-order-status" disabled>
                                 </div>
@@ -182,11 +196,9 @@
                                                 <th>STT</th>
                                                 <th>Tên sản phẩm</th>
                                                 <th>Số lượng</th>
-                                                <th>Giá tiền</th>
                                             </tr>
                                         </thead>
                                         <tbody id="list-product">
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -204,11 +216,11 @@
                                 <div class="col-lg-8 col-md-8">
                                     <select class="form-control" id="mySelect">&lt;!&ndash;&ndash;&gt;
                                         <option value="-1">Chọn trạng thái đơn hàng</option>
-                                        <option value="0">0-Đặt hàng thành công</option>
-                                        <option value="1">1-Tiếp nhận đơn hàng</option>
-                                        <option value="2">2-Đóng gói</option>
-                                        <option value="3">3-Giao hàng</option>
-                                        <option value="4">4-Giao hàng thành công</option>
+                                        <option value="0">0 - Đặt hàng thành công</option>
+                                        <option value="1">1 - Tiếp nhận đơn hàng</option>
+                                        <option value="2">2 - Đóng gói</option>
+                                        <option value="3">3 - Giao hàng</option>
+                                        <option value="4">4- Giao hàng thành công</option>
                                     </select>
                                 </div>
                             </div>
@@ -227,9 +239,9 @@
             </div>
         </form>
     </div>
-   
+
     <!-- FOOTER SECTION END-->
-    
+
     <!-- JAVASCRIPT FILES PLACED AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
     <!-- CORE JQUERY  -->
     <script src="javascripts/jquery-1.10.2.js"></script>
@@ -253,11 +265,24 @@
         $(".btn-edit-order").click(function () {
 
             $("#list-product").empty();
+            var list = JSON.parse($(this).attr('data-items'));
+            list.forEach(function (e, i) {
+                var tr = document.createElement("tr")
+                var td0 = document.createElement("td")
+                td0.innerHTML = i;
+                var td1 = document.createElement("td")
+                td1.innerHTML = e.name;
+                var td2 = document.createElement("td")
+                td2.innerHTML = e.quantity;
+                tr.append(td0);
+                tr.append(td1);
+                tr.append(td2);
+                console.log(tr)
+                $("#list-product").append(tr);
+            })
 
-            
             var code = $(this).parent().parent().find('#order-code').text();
             var url = "/order/" + code;
-            console.log(url);
             $.get(url)
                 .then(data => {
                     var statusCurrent = data.status;
@@ -270,29 +295,8 @@
                         $('#mySelect').removeAttr("disabled");
                     }
 
-                    var list = Object.keys(data.products.items)
-                    list.forEach(function (e, i) {
-
-                        var index = data.products.items[e]
-                        var tr = document.createElement("tr")
-                        var td0 = document.createElement("td")
-                        td0.innerHTML = i;
-                        var td1 = document.createElement("td")
-                        td1.innerHTML = index.item.name;
-                        var td2 = document.createElement("td")
-                        td2.innerHTML = index.qty;
-                        var td3 = document.createElement("td")
-                        var price = index.item.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
-                        td3.innerHTML = price;
-                        tr.append(td0);
-                        tr.append(td1);
-                        tr.append(td2);
-                        tr.append(td3);
-                        $("#list-product").append(tr);
-
-                    })
-
                 })
+
             var totalPrice = $(this).attr('data-total-price');
             var name = $(this).parent().parent().find('#order-name').text();
             var phone = $(this).parent().parent().find('#order-phone').text();
@@ -307,8 +311,8 @@
             $('#txt-order-update').attr('placeholder', update);
             $('#txt-order-status').attr('placeholder', status);
 
-            console.log(parseInt(totalPrice,10).toLocaleString('it-IT', {style : 'currency', currency : 'VND'}))
-            $('#txt-order-totalprice').attr('placeholder', parseInt(totalPrice,10).toLocaleString('it-IT', {style : 'currency', currency : 'VND'}));
+            // console.log(parseInt(totalPrice,10).toLocaleString('it-IT', {style : 'currency', currency : 'VND'}))
+            $('#txt-order-totalprice').attr('placeholder', parseInt(totalPrice, 10).toLocaleString('it-IT', { style: 'currency', currency: 'VND' }));
 
         })
 
@@ -317,33 +321,34 @@
             var element = document.getElementById("mySelect");
             var selectedValue = element.options[element.selectedIndex].value;
             var url = '/order/update-status-order?id=' + id + '&' + 'status=' + selectedValue;
-            console.log(url)
+            //var url = '/order/update-status-order';
+            console.log(selectedValue);
             $("#myForm").attr('action', url);
         })
-        $('#myFilter').change(function () {
-            var val = parseInt($("#myFilter option:selected").val());
-            var i = 0;
-            if(val == -1){
-                $(".gradeX").each(function(){
-                    $(this).find("#order-stt").text(i);
-                    $(this).show();
-                    i++;
-                    
-                })
-            }else{
-                $(".gradeX").each(function(){
-                    var t = parseInt($(this).find("#order-status").data("id"));
-                    if(t != val){
-                        $(this).hide();
-                    }else{
-                        console.log(i);
-                        $(this).find("#order-stt").text(i);
-                        $(this).show();
-                        i++;
-                    }
-                })
-            }
-        });
+        // $('#myFilter').change(function () {
+        //     var val = parseInt($("#myFilter option:selected").val());
+        //     var i = 0;
+        //     if (val == -1) {
+        //         $(".gradeX").each(function () {
+        //             $(this).find("#order-stt").text(i);
+        //             $(this).show();
+        //             i++;
+
+        //         })
+        //     } else {
+        //         $(".gradeX").each(function () {
+        //             var t = parseInt($(this).find("#order-status").data("id"));
+        //             if (t != val) {
+        //                 $(this).hide();
+        //             } else {
+        //                 // console.log(i);
+        //                 $(this).find("#order-stt").text(i);
+        //                 $(this).show();
+        //                 i++;
+        //             }
+        //         })
+        //     }
+        // });
     </script>
 </body>
 

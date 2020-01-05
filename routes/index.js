@@ -26,6 +26,7 @@ router.get('/category', productControllers.displayCategory);
 
 // Order
 router.get('/order', orderControllers.displayOrder);
+router.post('/order/update-status-order',orderControllers.updateOrder);
 
 // Customer
 router.get('/user', userControllers.displayUser);

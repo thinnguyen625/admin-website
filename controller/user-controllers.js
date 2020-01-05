@@ -66,7 +66,7 @@ exports.AuthoUser = function (req, res, next) {
 
    User.updateOne({ id: req.body.id }, {
       $set: {
-         role: 1
+         role: role
       }
    }) 
    const rol = req.params.role;

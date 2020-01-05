@@ -1,14 +1,19 @@
 var mongoose = require('mongoose');
-var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var orderSchema = mongoose.Schema({
-    orderID: Number,
-    userID: ObjectId,
-    customerName: String,
-    phone: String,
+    userID: String,
+    username: String,
+    email: String,
     address: String,
+    phone: String,
     note: String,
-    timeOrder: Number,
+    date: Date,
+    items: [{
+        name: String,
+        quantity: Number
+    }],
+    totalCost: Number,
+    status: Number
 });
 
 module.exports = mongoose.model('order', orderSchema, 'order');
