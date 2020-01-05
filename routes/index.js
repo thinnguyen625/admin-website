@@ -18,8 +18,8 @@ router.get('/home', homeControllers.index);
 
 // Product
 router.get('/product', productControllers.displayProducts);
-router.post('/product/edit', productControllers.editProduct);
 router.post('/product/add',upload.single('image'), productControllers.addProduct);
+router.post('/product/edit',upload.single('image'), productControllers.editProduct);
 
 // Category
 router.get('/category', productControllers.displayCategory);

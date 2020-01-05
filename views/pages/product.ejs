@@ -169,18 +169,6 @@
                     id="txt-product-quantity" required>
                 </div>
               </div>
-              <label class="col-form-label">Hình ảnh</label>
-              <div class="form-group">
-                <section class="thumbnail-container">
-                  <div class="thumbnail-container--content image-box" for="image-upload">
-                    <input accept="image/jpeg, image/gif, image/png" id="image-upload" multiple=""
-                      style="display: none;" type="file" name="image" onchange="loadFile(event)" required>
-                    <label class="style-pointer" for="image-upload" style="max-height: 100%; max-width: 100%">
-                      <img class="img-dialog" src="images/imageHolder.png" id="txt-product-image">
-                    </label>
-                  </div>
-                </section>
-              </div>
               <!-- <div class="form-group">
                 <label>Mô tả</label>
                 <textarea class="form-control" rows="3" name='info' required id="txt-product-id"></textarea>
@@ -193,11 +181,23 @@
                     id="txt-product-info" required>
                 </div>
               </div>
+              <label class="col-form-label">Hình ảnh</label>
+              <div class="form-group">
+                <section class="thumbnail-container">
+                  <div class="thumbnail-container--content image-box" for="image-upload">
+                    <input accept="image/jpeg, image/gif, image/png" id="image-upload" multiple=""
+                      style="display: none;" type="file" name="image" onchange="loadFile(event)" required>
+                    <label class="style-pointer" for="image-upload" style="max-height: 100%; max-width: 100%">
+                      <img class="img-dialog" src="images/imageHolder.png" id="txt-product-image">
+                    </label>
+                  </div>
+                </section>
+              </div>
             </div>
            
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" style="margin-right: 8px;">Hủy</button>
             <a href="/product" target="_parent">
               <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
             </a>
@@ -227,7 +227,7 @@
     })
     $(".btn-edit-product").click(function () {
       var id = $(this).data('id');
-      $("#my-form").attr('action', '/product/edit?id=' + id);
+      $("#my-form").attr('action', '/product/edit');
       var name = $(this).parent().parent().find('#product-name').text();
       var category = $(this).parent().parent().find('#product-category').text();
       var price = $(this).parent().parent().find('#product-price').text();

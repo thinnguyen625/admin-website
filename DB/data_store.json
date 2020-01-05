@@ -1,0 +1,3 @@
+{"_id":{"$oid":"5e09ab5a96bab606908bdf42"},"name":"Store Electro CS1","describe":"Vị trí đắc địa gần quận 1","image":"./img/store1.jpg","address":"135B Trần Hưng Đạo - Phường Cầu Ông Lãnh - Quận 1"}
+{"_id":{"$oid":"5e09b019baeeca06903863e6"},"name":"Store Electro CS2","describe":"Vị trí đắc địa gần quận 5","image":"./img/store1.jpg","address":"227 Nguyễn Văn Cử - Quận 5"}
+{"_id":{"$oid":"5e09b026baeeca06903863e7"},"name":"Store Electro CS3","describe":"Vị trí đắc địa gần quận 2","image":"./img/store1.jpg","address":"227 Nguyễn Văn Linh - P.Bình Trưng Đông - Quận 2"}

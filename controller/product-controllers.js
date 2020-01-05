@@ -23,40 +23,52 @@ exports.displayCategory = (req, res) => {
    res.render('pages/category');
 }
 
-exports.editProduct= (req, res) => {
-  res.render('pages/product');
-}
-
-
 exports.editProduct = (req, res) => {
    console.log(req.body)
-   let errors = [];
    const newName = req.body.name;
    const newCategory = req.body.category;
    const newPrice = req.body.price;
    const newOldPrice = req.body.old_price;
    const newQuantity = req.body.quantity;
-   const newImage = req.body.imgSrc;
-   const newDescription = req.body.description;
+   const newDescription = req.body.info;
 
-   User.findOne({ _id: req.body.id }) // Find user by ID
-      .then(user => {
-         console.log(user)
-         if (newName != '') { user.name = newName; }
-         if (newCategory != '') { user.category = newCategory; }
-         if (newPrice != '') { user.price = newPrice; }
-         if (newOldPrice != '') { user.old_price = newOldPrice; }
-         if (newQuantity != '') { user.quantity = newQuantity; }
-         if (newImage != '') { user.imgSrc = newImage; }
-         if (newDescription != '') { user.description = newDescription; }
-         user.save()
-            .then(user => {
-               req.flash('success_msg', 'Bạn đã cập nhật thành công');
+   if (!req.file) {
+      res.status(401).json({ error: 'Please provide an image' });
+   }
+   const uniqueFilename = new Date().toISOString();
+   const cloudinary = require('cloudinary').v2;
+   cloudinary.config({
+      cloud_name: 'ericnguyen-cop',
+      api_key: '432788984294521',
+      api_secret: '5PM0MeEyP1Xswb6FXtpp2LGT2YM'
+   })
+   cloudinary.uploader.upload(
+      "data:image/png;base64," + (req.file.buffer).toString('base64'),
+      { public_id: 'blog/' + uniqueFilename, tags: 'product' }, // directory and tags are optional
+      function (err, image) {
+         if (err) {
+            return res.send(err);
+         }
+         Product.update({
+            name: newName,
+            category: newCategory,
+            price: newPrice,
+            old_price: newOldPrice,
+            quantity: newQuantity,
+            imgSrc: image.url,
+            description: newDescription,
+         },
+         function (err, small) {
+            if (err) return next(err);
+            else {
                res.redirect('/product');
-            })
-            .catch(err => console.log(err));
-      })
-      .catch(err => console.log(err));
+            }
+         });
+         //console.log(image);
+      }
+   )
+
+ 
 }
 
 exports.addProduct = async function (req, res, next) {
