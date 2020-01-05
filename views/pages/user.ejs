@@ -74,23 +74,24 @@
                               <tr>
                                  <td class="style-middle-center"><%=i %></td>
                                  <td class="style-middle-center user-name" id="name_user"><%= entry.name %></td>
-                      <td class="style-middle-center user-address" id="address_user"><%= entry.address%></td>
-                      <td class="style-middle-center user-phone" id="phone_user"><%= entry.role%></td>
-                      <td class="style-middle-center user-created-time"><%=formatDate(entry.timeUpdate)%></td>
-                      <td class="style-middle-center">
-                        <button class="btn btn-outline-primary btn-edit-customer" type="button"
-                               data-toggle="modal" data-target="#myModal"
-                               data-id="<%= entry._id %>">
-                           <i class="fa fa-edit"></i>
-                        </button>
+                                 <td class="style-middle-center user-address" id="address_user"><%= entry.address%></td>
+                                 <td class="style-middle-center user-phone" id="phone_user"><%= entry.role%></td>
+                                 <td class="style-middle-center user-created-time"><%=formatDate(entry.timeUpdate)%>
+                                 </td>
+                                 <td class="style-middle-center">
+                                    <button class="btn btn-outline-primary btn-edit-customer" type="button"
+                                       data-toggle="modal" data-target="#myModal" data-id="<%= entry._id %>">
+                                       <i class="fa fa-edit"></i>
+                                    </button>
 
-                              <a class="btn btn-outline-primary btn-delete-user" type="button"
-                                 href="/user/delete/<%= entry._id %>">
-                                  <i class="far fa-trash-alt"></i></a>
-                              <a href="/user/autho?id=<%= entry._id %>" id="btn_authorization_admin" class="btn btn-primary"> Cấp quyền admin</a>
-                            </td>
-                      </tr>
-                      <% i++; }) %>
+                                    <a class="btn btn-outline-primary btn-delete-user" type="button"
+                                       href="/user/delete/<%= entry._id %>">
+                                       <i class="far fa-trash-alt"></i></a>
+                                    <a href="/user/autho?id=<%= entry._id %>" id="btn_authorization_admin"
+                                       class="btn btn-primary"> Cấp quyền admin</a>
+                                 </td>
+                              </tr>
+                              <% i++; }) %>
                            </tbody>
                         </table>
                      </div>
@@ -115,8 +116,8 @@
             <div class="modal-content">
                <div class="modal-header header-panel">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                  <h4 class="modal-title" id="myModalLabel" style="font-weight: bold">Chỉnh sửa thông tin khách
-                     hàng</h4>
+                  <h4 class="modal-title" id="myModalLabel" style="font-weight: bold">Chỉnh sửa thông tin khách hàng
+                  </h4>
                </div>
                <div class="modal-body">
                   <div class="col-md-12 col-log-12">

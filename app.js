@@ -32,6 +32,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({secret:'meo cats'}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 // Static path
 app.use(express.static(path.join(__dirname, 'public')));
@@ -42,7 +48,6 @@ app.use('/order', express.static(path.join(__dirname, 'public')));
 app.use('/user', express.static(path.join(__dirname, 'public')));
 app.use('/login', express.static(path.join(__dirname, 'public')));
 
-app.use(bodyParser.urlencoded({ extended: true }));
 
 // Express Session
 app.use(session({
@@ -60,13 +65,6 @@ app.use(flash());
 
 // Global Vars - require cart controller
 app.use((req, res, next) => {
-  // if (req.user){
-  //   res.locals.isLoggedIn = true;
-  //   res.locals.userFullname = req.user.fullname;
-  // }else{
-  //   res.locals.isLoggedIn = false;
-  // }
-
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');

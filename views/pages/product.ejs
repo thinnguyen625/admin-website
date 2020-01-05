@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -81,7 +82,7 @@
                       </td>
                       <td class="style-middle-center" id="product-price"><%= priceConverter(entry.price) %>
                       </td>
-                      <td class="style-middle-center" id="product-price"><%= priceConverter(entry.old_price) %>
+                      <td class="style-middle-center" id="product-old-price"><%= priceConverter(entry.old_price) %>
                       </td>
                       <td class="style-middle-center" id="product-quantity"><%= entry.quantity %>
                       </td>
@@ -95,7 +96,7 @@
                           <i class="far fa-trash-alt"></i></a>
                       </td>
                     </tr>
-                     <% i++; }) %>
+                    <% i++; }) %>
                   </tbody>
                 </table>
               </div>
@@ -129,20 +130,36 @@
                 </div>
               </div>
               <div class="form-group row">
+                <label class="col-lg-2 col-md-2 col-form-label">Danh mục</label>
+                <div class="col-lg-10 col-md-10">
+                  <input class="form-control ng-untouched ng-pristine ng-valid" type="text" name='category' required=""
+                    id="txt-product-category" required>
+                </div>
+              </div>
+              <!-- <div class="form-group row">
                 <label class="col-lg-2 col-md-2 col-form-label" for="category-list">Danh mục</label>
                 <div class="col-lg-10 col-md-10">
                   <select class="form-control ng-pristine ng-valid ng-touched" id="category-list" name="category">
 
-                    <option value="">àdafasdf</option>
+                    <option value="<%=products.id%>"><%=products.catelogy%></option>
 
                   </select>
                 </div>
+              </div> -->
+
+
+              <div class="form-group row">
+                <label class="col-lg-2 col-md-2 col-form-label">Giá mới</label>
+                <div class="col-lg-10 col-md-10">
+                  <input class="form-control ng-pristine ng-valid ng-touched" type="number" step="1000" name='price' required=""
+                    id="txt-product-price" required>
+                </div>
               </div>
               <div class="form-group row">
-                <label class="col-lg-2 col-md-2 col-form-label">Giá tiền</label>
+                <label class="col-lg-2 col-md-2 col-form-label">Giá cũ</label>
                 <div class="col-lg-10 col-md-10">
-                  <input class="form-control ng-pristine ng-valid ng-touched" type="number" name='price'
-                    id="txt-product-price" required>
+                  <input class="form-control ng-pristine ng-valid ng-touched" type="number" step="1000" name='old_price'
+                    id="txt-product-old-price" required>
                 </div>
               </div>
               <div class="form-group row">
@@ -164,16 +181,24 @@
                   </div>
                 </section>
               </div>
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label>Mô tả</label>
-                <textarea class="form-control" rows="3" name='info' required id="txt-product-info"></textarea>
-                <input type="text" name='id' id="txt-product-id" style="height: 0px; width: 0px; visibility: hidden;">
+                <textarea class="form-control" rows="3" name='info' required id="txt-product-id"></textarea>
+                <input type="text" name='info' id="txt-product-id" style="height: 0px; width: 0px; visibility: hidden;">
+              </div> -->
+              <div class="form-group row">
+                <label class="col-lg-2 col-md-2 col-form-label">Mô tả</label>
+                <div class="col-lg-10 col-md-10">
+                  <input class="form-control ng-untouched ng-pristine ng-valid" type="text" name='info'
+                    id="txt-product-info" required>
+                </div>
               </div>
             </div>
+           
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
-            <a href="" target="_parent">
+            <a href="/product" target="_parent">
               <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
             </a>
           </div>
@@ -186,33 +211,43 @@
   <!-- CORE JQUERY  -->
   <script src="javascripts/jquery-1.10.2.js"></script>
   <script>
+    const _priceConvert = (x) => {
+      return Number(x.toString().replace(/\./gi, ""));
+    }
     $("#btn-add-product").click(function () {
       $("#my-form").attr('action', '/product/add');
-      $('#txt-product-name').attr('placeholder', '');
-      $('#txt-product-image').attr('src', 'images/imageHolder.png');
-      $('#txt-product-info').attr('placeholder', '');
+      $('#txt-product-name').attr('value', '');
+      $('#txt-product-category').attr('value', '');
       $('#txt-product-price').attr('placeholder', '');
-      $('#txt-product-quantity').attr('placeholder', '');
+      $('#txt-product-old-price').attr('placeholder', '');
+      $('#txt-product-quantity').attr('number', '');
+      $('#txt-product-image').attr('src', 'images/imageHolder.png');
+      $('#txt-product-info').attr('value', '');
       $("#category-list option").attr('selected', false);
     })
     $(".btn-edit-product").click(function () {
       var id = $(this).data('id');
       $("#my-form").attr('action', '/product/edit?id=' + id);
       var name = $(this).parent().parent().find('#product-name').text();
+      var category = $(this).parent().parent().find('#product-category').text();
+      var price = $(this).parent().parent().find('#product-price').text();
+      //console.log($(this).parent().parent());
+      var old_price = $(this).parent().parent().find('#product-old-price').text();
+      var quantity = $(this).parent().parent().find('#product-quantity').text();
       var image = $(this).parent().parent().find('#product-image').attr('src');
       var info = $(this).parent().parent().find('#product-info').text();
-      var price = $(this).parent().parent().find('#product-price').text();
-      var quantity = $(this).parent().parent().find('#product-quantity').text();
       var category = $(this).parent().parent().find('#product-category').text().trim();
-      $('#txt-product-name').attr('placeholder', name);
+      $('#txt-product-name').attr('value', name);
+      $('#txt-product-category').attr('value', category);
+      $('#txt-product-price').attr('value',  _priceConvert(price));
+      $('#txt-product-old-price').attr('value', _priceConvert(old_price));
+      $('#txt-product-quantity').attr('value', Number(quantity));
       $('#txt-product-image').attr('src', image);
-      $('#txt-product-info').attr('placeholder', info);
-      $('#txt-product-price').attr('placeholder', price);
-      $('#txt-product-quantity').attr('placeholder', quantity);
-      $("#category-list option").filter(function () {
-        return $(this).text() == category;
-      }).attr('selected', true);
-      $('#txt-product-id').attr('value', id);
+      $('#txt-product-info').attr('value', info);
+      // $("#category-list option").filter(function () {
+      //   return $(this).text() == category;
+      // }).attr('selected', true);
+      //$('#txt-product-id').attr('value', id);
     })
     var loadFile = function (event) {
       var image = document.getElementById('txt-product-image');

@@ -16,7 +16,7 @@ exports.displayUser = (req, res) => {
          throw err;
       });
 }
-// Update Profile
+// Edit Profile User
 exports.editUser = (req, res) => {
    console.log(req.body)
    let errors = [];
@@ -50,7 +50,7 @@ exports.deleteUser = function (req, res, next) {
    const id = req.params.id;
    console.log("id user deleted:", id);
 
-   User.findOne({ id: req.body.id }) // Find user by ID
+   User.findOne({ id: req.body.id })
       .then(user => {
          if (id != '') {
             user.deleteOne({ id: req.params.id });
