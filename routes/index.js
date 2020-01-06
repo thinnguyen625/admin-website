@@ -32,6 +32,8 @@ router.post('/order/update-status-order',orderControllers.updateOrder);
 router.get('/user', userControllers.displayUser);
 router.post('/user/edit', userControllers.editUser);
 router.get('/user/autho', userControllers.AuthoUser);
+router.get('/user/lock', userControllers.lockUser);
+router.get('/user/unlock', userControllers.unlockUser);
 router.get('/user/delete/:id', userControllers.deleteUser);
 
 

@@ -6,8 +6,8 @@ const userSchema = mongoose.Schema({
     email: { type: String },
     address: { type: String },
     password: { type: String },
-    timeUpdate: { type: Number },
-    role: { type: Number }
+    role: { type: Number },
+    locked: { type: Number }
 })
 
 module.exports = mongoose.model('user', userSchema, 'user');

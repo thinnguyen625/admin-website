@@ -48,13 +48,10 @@ exports.editUser = (req, res) => {
 
 exports.deleteUser = function (req, res, next) {
    const id = req.params.id;
-   console.log("id user deleted:", id);
+   console.log("id user deleted:", id)
 
-   User.findOne({ id: req.body.id })
-      .then(user => {
-         if (id != '') {
-            user.deleteOne({ id: req.params.id });
-         }
+   User.deleteOne({ _id: id })
+      .then(users => {
          res.redirect('/user');
       })
 }
@@ -63,17 +60,38 @@ exports.AuthoUser = function (req, res, next) {
    const id = req.query.id;
    console.log("id user:", id);
    const role = 1;
-
-   User.updateOne({ id: req.body.id }, {
+   
+   User.updateOne({ _id: id }, {
       $set: {
-         role: role
+         role: role,
       }
-   }) 
-   const rol = req.params.role;
-   console.log("role user:", rol);
+   }).then(res.redirect('/user'));
    res.redirect('/user');
-
 }
 
+exports.lockUser = function (req, res) {
+   const id = req.query.id;
+   console.log("id user:", id);
+   const lock = 1;
+   
+   User.updateOne({ _id: id }, {
+      $set: {
+         locked: lock,
+      }
+   }).then(res.redirect('/user'));
+   res.redirect('/user');
+}
 
+exports.unlockUser = function (req, res) {
+   const id = req.query.id;
+   console.log("id user:", id);
+   const lock = 0;
+   
+   User.updateOne({ _id: id }, {
+      $set: {
+         locked: lock,
+      }
+   }).then(res.redirect('/user'));
+   res.redirect('/user');
+}
 

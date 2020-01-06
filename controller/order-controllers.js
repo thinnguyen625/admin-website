@@ -1,7 +1,5 @@
 var Order = require('../models/order');
 
-
-
 exports.displayOrder = (req, res) => {
     Order.find({})
         .then(orders => {
@@ -16,19 +14,18 @@ exports.displayOrder = (req, res) => {
 }
 exports.updateOrder = (req, res) => {
     var id = req.query.id;
-    console.log(id);
+    //console.log(id);
     var status = req.query.status;
     var statusNumber = parseInt(status, 10);
-    console.log(statusNumber);
+
+
     if (statusNumber != -1) {
-        if (status != undefined) {
-            Order.updateOne({ id: req.body.id }, {
-                $set: {
-                    status: status,
-                }
-            })
-        }
-        res.redirect('/order');
+        Order.updateOne({ _id: id }, {
+            $set: {
+                status: status,
+            }
+        }).then(res.redirect('/order'));
+    } else {
+        res.redirect('/order')
     }
-    res.redirect('/order');
 }

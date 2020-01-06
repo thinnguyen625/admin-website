@@ -91,11 +91,9 @@
                                             <td class="center" id="order-address"><%= entry.address %></td>
                                             <td class="center" id="order-update"><%=changeDateFormat(entry.date)%></td>
                                             <td id="order-status" style="color: green;" data-id="">
-                                                <%  if(entry.status==0) {%>Đặt hàng thành công
-                                                <%} else if(entry.status==1) {%> Tiếp nhận đơn hàng
-                                                <%} else if(entry.status==2) {%> Đóng gói
-                                                <%} else if(entry.status==3) {%> Giao hàng
-                                                <%} else if(entry.status==4) {%> Giao hàng thành công
+                                                <%  if(entry.status==0) {%>Chưa giao hàng
+                                                <%} else if(entry.status==1) {%> Đang giao hàng
+                                                <%} else if(entry.status==2) {%> Giao hàng thành công
                                                 <%}%>     
                                             </td>
 
@@ -216,11 +214,9 @@
                                 <div class="col-lg-8 col-md-8">
                                     <select class="form-control" id="mySelect">&lt;!&ndash;&ndash;&gt;
                                         <option value="-1">Chọn trạng thái đơn hàng</option>
-                                        <option value="0">0 - Đặt hàng thành công</option>
-                                        <option value="1">1 - Tiếp nhận đơn hàng</option>
-                                        <option value="2">2 - Đóng gói</option>
-                                        <option value="3">3 - Giao hàng</option>
-                                        <option value="4">4- Giao hàng thành công</option>
+                                        <option value="0">0 - Chưa giao hàng</option>
+                                        <option value="1">1 - Đang giao hàng</option>
+                                        <option value="2">2 - Giao hàng thành công</option>
                                     </select>
                                 </div>
                             </div>
@@ -322,33 +318,9 @@
             var selectedValue = element.options[element.selectedIndex].value;
             var url = '/order/update-status-order?id=' + id + '&' + 'status=' + selectedValue;
             //var url = '/order/update-status-order';
-            console.log(selectedValue);
+            //console.log(selectedValue);
             $("#myForm").attr('action', url);
         })
-        // $('#myFilter').change(function () {
-        //     var val = parseInt($("#myFilter option:selected").val());
-        //     var i = 0;
-        //     if (val == -1) {
-        //         $(".gradeX").each(function () {
-        //             $(this).find("#order-stt").text(i);
-        //             $(this).show();
-        //             i++;
-
-        //         })
-        //     } else {
-        //         $(".gradeX").each(function () {
-        //             var t = parseInt($(this).find("#order-status").data("id"));
-        //             if (t != val) {
-        //                 $(this).hide();
-        //             } else {
-        //                 // console.log(i);
-        //                 $(this).find("#order-stt").text(i);
-        //                 $(this).show();
-        //                 i++;
-        //             }
-        //         })
-        //     }
-        // });
     </script>
 </body>
 

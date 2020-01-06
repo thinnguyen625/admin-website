@@ -23,21 +23,15 @@
    <!-- ICON -->
    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
       integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-
+   <style>
+   .lock{
+      margin-left: 80px;
+   }
+   </style>
 </head>
 
 <body>
    <%- include('../partials/header.ejs') %>
-   <% 
-    function formatDate(time) {
-        var date = new Date(time);
-        var day = date.getDate();
-        var month = date.getMonth()+1;
-        var year = date.getFullYear();
-        
-        return day + '/' + month + '/' + year;
-      }
-    %>
 
    <!-- MENU SECTION END-->
    <div class="content-wrapper">
@@ -61,10 +55,10 @@
                            <thead>
                               <tr>
                                  <th class="style-middle-center">STT</th>
+                                 <th class="style-middle-center">Mã người dùng</th>
                                  <th class="style-middle-center">Họ Tên</th>
                                  <th class="style-middle-center">Địa chỉ</th>
                                  <th class="style-middle-center">Số điện thoại</th>
-                                 <th class="style-middle-center">Ngày cập nhật</th>
                                  <th class="style-middle-center">Chức năng</th>
                               </tr>
                            </thead>
@@ -73,10 +67,10 @@
                               <% users.forEach((entry) => { %>
                               <tr>
                                  <td class="style-middle-center"><%=i %></td>
+                                 <td class="style-middle-center user-name" id="name_id"><%= entry._id %></td>
                                  <td class="style-middle-center user-name" id="name_user"><%= entry.name %></td>
                                  <td class="style-middle-center user-address" id="address_user"><%= entry.address%></td>
-                                 <td class="style-middle-center user-phone" id="phone_user"><%= entry.role%></td>
-                                 <td class="style-middle-center user-created-time"><%=formatDate(entry.timeUpdate)%>
+                                 <td class="style-middle-center user-phone" id="phone_user"><%= entry.phone%></td>
                                  </td>
                                  <td class="style-middle-center">
                                     <button class="btn btn-outline-primary btn-edit-customer" type="button"
@@ -84,11 +78,18 @@
                                        <i class="fa fa-edit"></i>
                                     </button>
 
-                                    <a class="btn btn-outline-primary btn-delete-user" type="button"
+                                    <a class="btn btn-outline-primary btn-delete-user <%if (entry.role == 1){%> disabled <%}%>" type="button"
                                        href="/user/delete/<%= entry._id %>">
                                        <i class="far fa-trash-alt"></i></a>
                                     <a href="/user/autho?id=<%= entry._id %>" id="btn_authorization_admin"
-                                       class="btn btn-primary"> Cấp quyền admin</a>
+                                       class="btn btn-primary" <%if (entry.role == 1){%> disabled <%}%>> Cấp quyền admin</a>
+                                    <a href="/user/lock?id=<%= entry._id %>" 
+                                       class="btn btn-primary lock"  
+                                       <%if (entry.role == 1){%> disabled <%}%>
+                                       <%if (entry.locked == 1){%> disabled <%}%> > Khóa</a>
+                                    <a href="/user/unlock?id=<%= entry._id %>" 
+                                       class="btn btn-primary" <%if (entry.role == 1){%> disabled <%}%>
+                                       <%if (entry.locked == 0 ){%> disabled <%}%> > Mở khóa</a>
                                  </td>
                               </tr>
                               <% i++; }) %>
@@ -116,7 +117,7 @@
             <div class="modal-content">
                <div class="modal-header header-panel">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                  <h4 class="modal-title" id="myModalLabel" style="font-weight: bold">Chỉnh sửa thông tin khách hàng
+                  <h4 class="modal-title" id="myModalLabel" style="font-weight: bold">Chỉnh sửa thông tin người dùng 
                   </h4>
                </div>
                <div class="modal-body">
@@ -144,6 +145,7 @@
                               style="height: 0px; width: 0px; visibility: hidden;">
                         </div>
                      </div>
+
                   </div>
                </div>
                <div class="modal-footer">
@@ -170,17 +172,19 @@
    <script>
       $(".btn-edit-customer").click(function () {
          var id = $(this).data('id');
+         
          $("#my-form").attr('action', '/user/edit?id=' + id);
          var name = $(this).parent().parent().find('#name_user').text();
          var address = $(this).parent().parent().find('#address_user').text();
          var phone = $(this).parent().parent().find('#phone_user').text();
 
-         $('#txt-name').attr('placeholder', name);
-         $('#txt-address').attr('placeholder', address);
-         $('#txt-phone').attr('placeholder', phone);
-
+         $('#txt-name').attr('value', name);
+         $('#txt-address').attr('value', address);
+         $('#txt-phone').attr('value', phone);
          $('#txt-user-id').attr('value', id);
       })
+
+      
 
         // $("#btn_authorization_admin").click(function(){
         //     var id = $(this).data('id');
