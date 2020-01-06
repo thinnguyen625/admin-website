@@ -66,7 +66,7 @@ exports.AuthoUser = function (req, res, next) {
          role: role,
       }
    }).then(res.redirect('/user'));
-   res.redirect('/user');
+   
 }
 
 exports.lockUser = function (req, res) {
@@ -79,7 +79,7 @@ exports.lockUser = function (req, res) {
          locked: lock,
       }
    }).then(res.redirect('/user'));
-   res.redirect('/user');
+   
 }
 
 exports.unlockUser = function (req, res) {
@@ -92,6 +92,6 @@ exports.unlockUser = function (req, res) {
          locked: lock,
       }
    }).then(res.redirect('/user'));
-   res.redirect('/user');
+   
 }
 
