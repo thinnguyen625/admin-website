@@ -14,6 +14,10 @@ module.exports = function(passport) {
                     if (!user) {
                         return done(null, false, { message: 'Email chưa được đăng ký' });
                     }
+                    //console.log("role: ",user);
+                    if (user.role == 0) {
+                        return done(null, false, { message: 'Tài khoản chưa được cấp quyền' });
+                    }
 
                     // Match password
                     bcrypt.compare(password, user.password, (err, isMatch) => {
