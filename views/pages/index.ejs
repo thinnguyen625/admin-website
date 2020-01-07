@@ -1,4 +1,4 @@
-<% var n = 100 %>
+
 <!DOCTYPE html>
 <html>
 
@@ -106,7 +106,7 @@
 									<tbody id="list-sold-product">
 										<% for (var i = 0; i < top10.length; i++) { %>
 										<tr>
-											<td><%= i %></td>
+											<td><%= i + 1 %></td>
 											<td><%= top10[i]._id %></td>
 											<td><%= top10[i].totalAmount %></td>
 										</tr>
@@ -120,10 +120,10 @@
 
 			</div>
 			<!-- CHART -->
-			<h4 class="header-line">BIỂU ĐỒ THỐNG KÊ SỐ LƯỢNG SẢN PHẨM ĐÃ BÁN</h4>
+			<h4 class="header-line">THỐNG KÊ DOANH SỐ BÁN HÀNG</h4>
 			<div class="row">
 				<iframe class="chartjs-hidden-iframe chart-1" tabindex="-1"></iframe>
-				<canvas class="chart-2"></canvas>
+				<canvas id="chart"></canvas>
 			</div>
 		</div>
 	</div>
@@ -133,5 +133,23 @@
 	<!-- FOOTER SECTION END-->
 
 </body>
+
+<script>
+	let myChart = document.getElementById('chart').getContext('2d');
+
+	let chart = new Chart(myChart, {
+		type: 'line',
+		data: {
+			labels: ['5/1/2020', '6/1/2020', '7/1/2020'],
+			datasets: [{
+				label: 'Doanh thu',
+				data: [ 15000000, 20000000, 30000000 ]
+			}]
+		},
+		option: {
+
+		}
+	});
+</script>
 
 </html>
