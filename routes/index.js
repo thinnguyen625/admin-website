@@ -8,39 +8,38 @@ var orderControllers = require('../controller/order-controllers');
 var userControllers = require('../controller/user-controllers');
 var storeControllers = require('../controller/store-controllers');
 const upload = require('../uploadMiddleware');
-
+const { ensureAuthenticated } = require('../config/auth');
 
 
 /* GET home page. */
-router.get('/', homeControllers.index);
+router.get('/',ensureAuthenticated, homeControllers.index);
 
-router.get('/home', homeControllers.index);
+router.get('/home',ensureAuthenticated, homeControllers.index);
 
 // Product
-router.get('/product', productControllers.displayProducts);
+router.get('/product', ensureAuthenticated, productControllers.displayProducts);
 router.post('/product/add',upload.single('image'), productControllers.addProduct);
 router.post('/product/edit',upload.single('image'), productControllers.editProduct);
 
 // Category
-router.get('/category', productControllers.displayCategory);
+router.get('/category', ensureAuthenticated, productControllers.displayCategory);
 
 // Order
-router.get('/order', orderControllers.displayOrder);
-router.post('/order/update-status-order',orderControllers.updateOrder);
+router.get('/order', ensureAuthenticated, orderControllers.displayOrder);
+router.post('/order/update-status-order', orderControllers.updateOrder);
 
 // Customer
-router.get('/user', userControllers.displayUser);
-router.post('/user/edit', userControllers.editUser);
-router.get('/user/autho', userControllers.AuthoUser);
-router.get('/user/lock', userControllers.lockUser);
-router.get('/user/unlock', userControllers.unlockUser);
-router.get('/user/delete/:id', userControllers.deleteUser);
+router.get('/user',ensureAuthenticated, userControllers.displayUser);
+router.post('/user/edit',userControllers.editUser);
+router.get('/user/autho',ensureAuthenticated, userControllers.AuthoUser);
+router.get('/user/lock',ensureAuthenticated, userControllers.lockUser);
+router.get('/user/unlock',ensureAuthenticated, userControllers.unlockUser);
+router.get('/user/delete/:id',ensureAuthenticated, userControllers.deleteUser);
 
 
 // Store
-router.get('/store', storeControllers.displayStore);
+router.get('/store', ensureAuthenticated, storeControllers.displayStore);
 router.post('/store/add',upload.single('image'), storeControllers.addStore);
-// router.post('/store/edit', upload.single('image'),storeControllers.editStore);
-router.get('/store/delete/:id', storeControllers.deleteStore);
+router.get('/store/delete/:id', ensureAuthenticated, storeControllers.deleteStore);
 
 module.exports = router;

@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var adminControllers = require('../controller/admin-controllers');
-const { ensureAuthenticated } = require('../config/auth');
 
 // Login Page
 router.get('/login', adminControllers.loginPage);

@@ -32,7 +32,7 @@
 	<div class="content-wrapper">
 		<div class="container">
 
-			<div class="row pad-botm col-md-12">
+			<!-- <div class="row pad-botm col-md-12">
 				<div class="row">
 					<div class="col-md-2">
 						<h4 class="text-line">Thời gian: </h4>
@@ -49,21 +49,21 @@
 					</div>
 				</div>
 				<br />
-			</div>
+			</div> -->
 			<h4 class="header-line">THỐNG KÊ TỔNG THU - SL ĐƠN HÀNG - SL NGƯỜI DÙNG</h4>
 			<div class="row">
 				<div class="col-md-4 col-sm-4 col-xs-6">
 					<div class="alert alert-info back-widget-set text-center">
 						<img src="images/revenue.png" class="img-statistic" />
-						<h3>Tổng thu</h3>
-						<h4 id="info-totalprice-order">100.000.000</h4>
+						<h3>Tổng doanh thu</h3>
+						<h4 id="info-totalprice-order"><%= priceConverter(totalSales) %></h4>
 					</div>
 				</div>
 				<div class="col-md-4 col-sm-4 col-xs-6">
 					<div class="alert alert-warning back-widget-set text-center">
 						<img src="images/order.png" class="img-statistic" />
 						<h3>Đơn hàng</h3>
-						<h4 id="info-count-order">407</h4>
+						<h4 id="info-count-order"><%= countOrders %></h4>
 					</div>
 				</div>
 				<div class="col-md-4 col-sm-4 col-xs-6">
@@ -77,7 +77,7 @@
 
 			<h4 class="header-line">THỐNG KÊ SẢN PHẨM ĐÃ BÁN</h4>
 			<div class="row">
-				<div class="col-md-4 col-sm-4 col-xs-12">
+				<!-- <div class="col-md-4 col-sm-4 col-xs-12">
 					<div class="panel">
 						<div class="panel-heading header-panel">
 							Hình ảnh 10 sản phẩm bán chạy nhất
@@ -87,8 +87,8 @@
 						</div>
 
 					</div>
-				</div>
-				<div class="col-md-8 col-sm-8 col-xs-12">
+				</div> -->
+				<div class="col-md-12 col-sm-12 col-xs-12">
 					<div class="panel">
 						<div class="panel-heading header-panel">
 							Top 10 sản phẩm bán chạy nhất
@@ -125,6 +125,8 @@
 				<iframe class="chartjs-hidden-iframe chart-1" tabindex="-1"></iframe>
 				<canvas id="chart"></canvas>
 			</div>
+			<input type="text" id="labels" value="<% for (var i = 0; i < data.length; i++) {%><%= data[i]._id %>,<% } %>" hidden>
+			<input type="text" id="data" value="<% for (var i = 0; i < data.length; i++) {%><%= data[i].totalSales %>,<% } %>" hidden>
 		</div>
 	</div>
 	<!-- CONTENT-WRAPPER SECTION END-->
@@ -136,14 +138,23 @@
 
 <script>
 	let myChart = document.getElementById('chart').getContext('2d');
+	let labels = document.getElementById('labels').value.split(',');
+	labels.pop();
+	let dataStr = document.getElementById('data').value.split(',');
+	dataStr.pop();
+	let data = [];
+	// Parse each dataStr element to number
+	dataStr.forEach(entry => {
+		data.push(parseInt(entry))
+	});
 
 	let chart = new Chart(myChart, {
-		type: 'line',
+		type: 'bar',
 		data: {
-			labels: ['5/1/2020', '6/1/2020', '7/1/2020'],
+			labels: labels.reverse(),
 			datasets: [{
 				label: 'Doanh thu',
-				data: [ 15000000, 20000000, 30000000 ]
+				data: data.reverse()
 			}]
 		},
 		option: {
