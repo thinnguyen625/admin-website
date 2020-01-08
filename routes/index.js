@@ -20,6 +20,7 @@ router.get('/home',ensureAuthenticated, homeControllers.index);
 router.get('/product', ensureAuthenticated, productControllers.displayProducts);
 router.post('/product/add',upload.single('image'), productControllers.addProduct);
 router.post('/product/edit',upload.single('image'), productControllers.editProduct);
+router.get('/product/delete/:id',ensureAuthenticated, productControllers.deleteProduct);
 
 // Category
 router.get('/category', ensureAuthenticated, productControllers.displayCategory);

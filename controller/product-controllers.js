@@ -117,3 +117,13 @@ exports.addProduct = async function (req, res, next) {
       }
    )
 }
+
+exports.deleteProduct = function (req, res, next) {
+   const id = req.params.id;
+   console.log("id product deleted:", id)
+
+   Product.deleteOne({ _id: id })
+      .then(product => {
+         res.redirect('/product');
+      })
+} 

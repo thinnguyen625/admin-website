@@ -70,6 +70,5 @@ exports.deleteStore = function (req, res, next) {
             store.deleteOne({ id: req.body.id });
          }
          res.redirect('/store');
-         next();
       })
 } 
