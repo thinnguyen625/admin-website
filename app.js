@@ -5,6 +5,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose')
+require('dotenv').config()
 
 const flash = require('connect-flash');
 const session = require('express-session');
@@ -16,7 +18,6 @@ var app = express();
 // router files =================================================
 var indexRouter = require('./routes/index');
 var adminRouter = require('./routes/admin');
-var Database = require('./db/database');
 
 // Passport config ==============================================
 require('./config/passport')(passport);
@@ -74,6 +75,17 @@ app.use((req, res, next) => {
 // Router
 app.use('/', indexRouter);
 app.use('/', adminRouter);
+
+//Connect DB    
+const URI = process.env.MONGODB_URL
+
+mongoose.connect(URI, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true
+}, err => {
+    if(err) throw err;
+    console.log('Connected to mongodb')
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

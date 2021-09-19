@@ -80,6 +80,10 @@
                       </td>
                       <td class="style-middle-center" id="product-info"><%= entry.description %>
                       </td>
+                      <td class="style-middle-center d-more" id="product-configuration"><%= entry.configuration %>
+                      </td>
+                      <td class="style-middle-center d-more" id="product-producer"><%= entry.producer %>
+                      </td>
                       <td class="style-middle-center" id="product-price"><%= priceConverter(entry.price) %>
                       </td>
                       <td class="style-middle-center" id="product-old-price"><%= priceConverter(entry.old_price) %>
@@ -175,10 +179,24 @@
                 <input type="text" name='info' id="txt-product-id" style="height: 0px; width: 0px; visibility: hidden;">
               </div> -->
               <div class="form-group row">
-                <label class="col-lg-2 col-md-2 col-form-label">Mô tả</label>
+                <label class="col-lg-2 col-md-2 col-form-label">Mô tả sản phẩm</label>
                 <div class="col-lg-10 col-md-10">
                   <input class="form-control ng-untouched ng-pristine ng-valid" type="text" name='info'
                     id="txt-product-info" required>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-lg-2 col-md-2 col-form-label">Thông tin cấu hình</label>
+                <div class="col-lg-10 col-md-10">
+                  <input class="form-control ng-untouched ng-pristine ng-valid" type="text" name='configuration'
+                    id="txt-product-configuration" required>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-lg-2 col-md-2 col-form-label">Nhà sản xuất</label>
+                <div class="col-lg-10 col-md-10">
+                  <input class="form-control ng-untouched ng-pristine ng-valid" type="text" name='producer'
+                    id="txt-product-producer" required>
                 </div>
               </div>
               <label class="col-form-label">Hình ảnh</label>
@@ -199,7 +217,7 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal" style="margin-right: 8px;">Hủy</button>
             <a href="/product" target="_parent">
-              <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+              <button type="submit" class="btn btn-primary">Lưu</button>
             </a>
           </div>
         </div>
@@ -223,11 +241,13 @@
       $('#txt-product-quantity').attr('number', '');
       $('#txt-product-image').attr('src', 'images/imageHolder.png');
       $('#txt-product-info').attr('value', '');
+      $('#txt-product-configuration').attr('value', '');
+      $('#txt-product-producer').attr('value', '');
       $("#category-list option").attr('selected', false);
     })
     $(".btn-edit-product").click(function () {
-      var id = $(this).data('id');
       $("#my-form").attr('action', '/product/edit');
+      var id = $(this).data('id');
       var name = $(this).parent().parent().find('#product-name').text();
       var category = $(this).parent().parent().find('#product-category').text();
       var price = $(this).parent().parent().find('#product-price').text();
@@ -236,6 +256,8 @@
       var quantity = $(this).parent().parent().find('#product-quantity').text();
       var image = $(this).parent().parent().find('#product-image').attr('src');
       var info = $(this).parent().parent().find('#product-info').text();
+      var configuration = $(this).parent().parent().find('#product-configuration').text();
+      var producer = $(this).parent().parent().find('#product-producer').text();
       var category = $(this).parent().parent().find('#product-category').text().trim();
       $('#txt-product-name').attr('value', name);
       $('#txt-product-category').attr('value', category);
@@ -244,6 +266,8 @@
       $('#txt-product-quantity').attr('value', Number(quantity));
       $('#txt-product-image').attr('src', image);
       $('#txt-product-info').attr('value', info);
+      $('#txt-product-configuration').attr('value', configuration);
+      $('#txt-product-producer').attr('value', producer);
       // $("#category-list option").filter(function () {
       //   return $(this).text() == category;
       // }).attr('selected', true);

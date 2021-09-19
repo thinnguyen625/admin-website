@@ -24,13 +24,15 @@ exports.displayCategory = (req, res) => {
 }
 
 exports.editProduct = (req, res) => {
-   console.log(req.body)
+   //console.log(req.body)
    const newName = req.body.name;
    const newCategory = req.body.category;
    const newPrice = req.body.price;
    const newOldPrice = req.body.old_price;
    const newQuantity = req.body.quantity;
    const newDescription = req.body.info;
+   const newConfiguration = req.body.configuration;
+   const newProducer = req.body.producer;
 
    if (!req.file) {
       res.status(401).json({ error: 'Please provide an image' });
@@ -57,6 +59,8 @@ exports.editProduct = (req, res) => {
             quantity: newQuantity,
             imgSrc: image.url,
             description: newDescription,
+            configuration: newConfiguration,
+            producer: newProducer,
          },
          function (err, small) {
             if (err) return next(err);
@@ -80,6 +84,9 @@ exports.addProduct = async function (req, res, next) {
    const newQuantity = req.body.quantity;
 
    const newDescription = req.body.info;
+   const newConfiguration = req.body.configuration;
+   const newProducer = req.body.producer;
+
    //console.log(req.body);
    if (!req.file) {
       res.status(401).json({ error: 'Please provide an image' });
@@ -106,6 +113,8 @@ exports.addProduct = async function (req, res, next) {
             quantity: newQuantity,
             imgSrc: image.url,
             description: newDescription,
+            configuration: newConfiguration,
+            producer: newProducer,
          },
          function (err, small) {
             if (err) return next(err);
